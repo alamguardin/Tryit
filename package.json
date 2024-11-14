@@ -1,18 +1,21 @@
 {
-  "name": "tryit",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "devDependencies": {
-    "electron": "^33.2.0"
-  },
-  "dependencies": {
-    "codemirror": "^6.0.1"
-  }
+	"name": "tryit",
+	"version": "1.0.0",
+	"main": "main.mjs",
+	"type": "module",
+	"scripts": {
+		"start": "electron .",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"electron": "^33.2.0"
+	},
+	"dependencies": {
+		"express": "^4.21.1"
+	}
 }
