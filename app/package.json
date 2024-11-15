@@ -10,5 +10,11 @@
   },
   "devDependencies": {
     "vite": "^5.4.10"
+  },
+  "dependencies": {
+    "@codemirror/lang-javascript": "^6.2.2",
+    "@codemirror/language": "^6.10.3",
+    "codemirror": "^6.0.1",
+    "thememirror": "^2.0.1"
   }
 }
