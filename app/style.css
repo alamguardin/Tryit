@@ -31,3 +31,10 @@
     height: 100%;
     padding: 1rem;
 }
+
+iframe {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+    appearance: none;
+}
