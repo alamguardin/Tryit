@@ -40,9 +40,11 @@ editor.addEventListener('keyup', () => {
 				const result = eval(dynamicCode);
 				if (typeof result === 'object') {
 					let fragment = '';
+					let loopCount = 0;
 					const entriesObject = Object.entries(result);
 					for (const entrie of entriesObject) {
-						fragment += `${entrie[0]} : ${entrie[1]}, `;
+						loopCount++;
+						fragment += `${entrie[0]} : ${entrie[1]}${loopCount !== entriesObject.length ? ', ' : ''}`;
 					}
 					resutls.push(`{ ${fragment} }`);
 				} else {
