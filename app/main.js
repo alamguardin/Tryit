@@ -38,7 +38,7 @@ editor.addEventListener('keyup', () => {
 			if (node.type === 'ExpressionStatement') {
 				// biome-ignore lint/security/noGlobalEval: <explanation>
 				const result = eval(dynamicCode);
-				if (typeof result === 'object') {
+				if (typeof result === 'object' && !Array.isArray(result)) {
 					let fragment = '';
 					let loopCount = 0;
 					const entriesObject = Object.entries(result);
@@ -47,6 +47,17 @@ editor.addEventListener('keyup', () => {
 						fragment += `${entrie[0]} : ${entrie[1]}${loopCount !== entriesObject.length ? ', ' : ''}`;
 					}
 					resutls.push(`{ ${fragment} }`);
+				} else if (
+					typeof result === 'object' &&
+					Array.isArray(result)
+				) {
+					let fragment = '';
+					let loopCount = 0;
+					for (const value of result) {
+						loopCount++;
+						fragment += `${value}${loopCount !== result.length ? ', ' : ''}`;
+					}
+					resutls.push(`[ ${fragment} ]`);
 				} else {
 					resutls.push(result);
 				}
@@ -57,9 +68,9 @@ editor.addEventListener('keyup', () => {
 			const resultExpression = `<div>${result}</div>`;
 			resultsFragment += resultExpression;
 		}
-		console.log(resutls);
+
 		output.innerHTML = resultsFragment;
 	} catch (e) {
-		output.innerHTML = `<div>${e.name}</div>`;
+		output.innerHTML = `<div>${e.name} ${e.message}</div>`;
 	}
 });
