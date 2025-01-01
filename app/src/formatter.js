@@ -2,9 +2,18 @@ const testResults = {
 	str: 'Hello',
 	num: 1924,
 	bool: true,
-	obj: { name: 'Alam', age: 21, bool: false },
+	obj: {
+		name: 'Alam',
+		age: 21,
+		bool: false,
+		att: { power: 213, money: 100 },
+	},
 	arr: [['a', 'b'], 0, 1, 2, ['name', ['Alam', 21, [0, 2, 3, true]]]],
 };
+
+function isObject(value) {
+	return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
 
 function str(result) {
 	return {
@@ -31,7 +40,7 @@ function deepMap(arr) {
 	return arr.map((item) => {
 		return Array.isArray(item)
 			? deepMap(item)
-			: `<span class=${typeof item}>${item}</span>`;
+			: `<span class='${typeof item}'>${item}</span>`;
 	});
 }
 
@@ -44,6 +53,34 @@ function arr(result) {
 
 	return {
 		type: 'array',
+		content: newFormat,
+	};
+}
+
+function mappedObj(obj) {
+	return Object.fromEntries(
+		Object.entries(obj).map(([key, value]) => {
+			if (typeof value === 'object') {
+				return [`<span class='key'>${key}</span>`, mappedObj(value)];
+			}
+			return [
+				`<span class='key'>${key}</span>`,
+				`<span class='${typeof value}'>${value}</span>`,
+			];
+		}),
+	);
+}
+
+function obj(result) {
+	const newFormat = JSON.stringify(mappedObj(result))
+		.replaceAll('"', '')
+		.replaceAll(':', ' : ')
+		.replaceAll(',', ', ')
+		.replaceAll('{', '{ ')
+		.replaceAll('}', ' }');
+
+	return {
+		type: 'object',
 		content: newFormat,
 	};
 }
@@ -64,9 +101,14 @@ function formatter(result) {
 	if (Array.isArray(result)) {
 		return arr(result);
 	}
+
+	if (isObject(result)) {
+		return obj(result);
+	}
 }
 
 console.log(formatter(testResults.str));
 console.log(formatter(testResults.num));
 console.log(formatter(testResults.bool));
 console.log(formatter(testResults.arr));
+console.log(formatter(testResults.obj));
