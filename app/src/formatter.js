@@ -107,8 +107,4 @@ function formatter(result) {
 	}
 }
 
-console.log(formatter(testResults.str));
-console.log(formatter(testResults.num));
-console.log(formatter(testResults.bool));
-console.log(formatter(testResults.arr));
-console.log(formatter(testResults.obj));
+export default formatter;

@@ -25,10 +25,11 @@ const output = document.getElementById('output');
 editor.addEventListener('keyup', () => {
 	const currentCode = view.state.doc.toString();
 	const results = evaluate(currentCode);
+	console.log(results);
 	let resultsFragment = '';
 
 	for (const result of results) {
-		const resultExpression = `<div>${result}</div>`;
+		const resultExpression = `<div class="${result.type}">${result.content}</div>`;
 		resultsFragment += resultExpression;
 	}
 
