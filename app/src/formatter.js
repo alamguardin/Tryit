@@ -3,7 +3,7 @@ const testResults = {
 	num: 1924,
 	bool: true,
 	obj: { name: 'Alam', age: 21, bool: false },
-	arr: [21, 'Jhon', false],
+	arr: [['a', 'b'], 0, 1, 2, ['name', ['Alam', 21, [0, 2, 3, true]]]],
 };
 
 function str(result) {
@@ -27,6 +27,27 @@ function bool(result) {
 	};
 }
 
+function deepMap(arr) {
+	return arr.map((item) => {
+		return Array.isArray(item)
+			? deepMap(item)
+			: `<span class=${typeof item}>${item}</span>`;
+	});
+}
+
+function arr(result) {
+	const newFormat = JSON.stringify(deepMap(result))
+		.replaceAll('"', '')
+		.replaceAll(',', ', ')
+		.replaceAll('[', '[ ')
+		.replaceAll(']', ' ]');
+
+	return {
+		type: 'array',
+		content: newFormat,
+	};
+}
+
 function formatter(result) {
 	if (typeof result === 'string') {
 		return str(result);
@@ -39,8 +60,13 @@ function formatter(result) {
 	if (typeof result === 'boolean') {
 		return bool(result);
 	}
+
+	if (Array.isArray(result)) {
+		return arr(result);
+	}
 }
 
 console.log(formatter(testResults.str));
 console.log(formatter(testResults.num));
 console.log(formatter(testResults.bool));
+console.log(formatter(testResults.arr));
