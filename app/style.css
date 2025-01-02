@@ -64,3 +64,21 @@ iframe {
     visibility: hidden;
     appearance: none;
 }
+
+/* Results styles */
+.output .string {
+    color: #f1fa8c;
+}
+
+.output .boolean,
+.output .number {
+    color: #bd93f9;
+}
+
+.output .key {
+    color: #8be9fd;
+}
+
+.output .error {
+    color: #FF5555;
+}

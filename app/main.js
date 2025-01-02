@@ -9,8 +9,30 @@ import evaluate from './src/Evaluate';
 /**
  * Get Started the editor
  */
+
+const testDoc = `
+const testResults = {
+	str: 'Hello',
+	num: 1924,
+	bool: true,
+	obj: {
+		name: 'Alam',
+		age: 21,
+		bool: false,
+		att: { power: 213, money: 100 },
+	},
+	arr: [['a', 'b'], 0, 1, 2, ['name', ['Alam', 21, [0, 2, 3, true]]]],
+};
+
+testResults.str
+testResults.num
+testResults.bool
+testResults.obj
+testResults.arr
+`;
+
 const startState = EditorState.create({
-	doc: '//Write something',
+	doc: testDoc,
 	extensions: [keymap.of(defaultKeymap), javascript(), dracula],
 });
 
