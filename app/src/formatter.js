@@ -64,6 +64,13 @@ function bool(result) {
 	};
 }
 
+function bigint(result) {
+	return {
+		type: 'bigint',
+		content: result,
+	};
+}
+
 function arr(result) {
 	const newFormat = JSON.stringify(deepMap(result))
 		.replaceAll('"', '')
@@ -102,6 +109,10 @@ function formatter(result) {
 
 	if (typeof result === 'boolean') {
 		return bool(result);
+	}
+
+	if (typeof result === 'bigint') {
+		return bigint(result);
 	}
 
 	if (Array.isArray(result)) {

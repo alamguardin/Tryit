@@ -71,7 +71,8 @@ iframe {
 }
 
 .output .boolean,
-.output .number {
+.output .number,
+.output .bigint {
     color: #bd93f9;
 }
 
