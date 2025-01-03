@@ -1,18 +1,46 @@
-const testResults = {
-	str: 'Hello',
-	num: 1924,
-	bool: true,
-	obj: {
-		name: 'Alam',
-		age: 21,
-		bool: false,
-		att: { power: 213, money: 100 },
-	},
-	arr: [['a', 'b'], 0, 1, 2, ['name', ['Alam', 21, [0, 2, 3, true]]]],
-};
-
 function isObject(value) {
 	return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+function deepMap(arr) {
+	return arr.map((item) => {
+		return Array.isArray(item)
+			? deepMap(item)
+			: isObject(item)
+				? JSON.stringify(mappedObj(item))
+						.replaceAll('"', '')
+						.replaceAll(':', ' : ')
+						.replaceAll(',', ', ')
+						.replaceAll('{', '{ ')
+						.replaceAll('}', ' }')
+				: `<span class='${typeof item}'>${item}</span>`;
+	});
+}
+
+function mappedObj(obj) {
+	return Object.fromEntries(
+		Object.entries(obj).map(([key, value]) => {
+			if (isObject(value)) {
+				return [`<span class='key'>${key}</span>`, mappedObj(value)];
+			}
+
+			if (Array.isArray(value)) {
+				return [
+					`<span class='key'>${key}</span>`,
+					JSON.stringify(deepMap(value))
+						.replaceAll('"', '')
+						.replaceAll(',', ', ')
+						.replaceAll('[', '[ ')
+						.replaceAll(']', ' ]'),
+				];
+			}
+
+			return [
+				`<span class='key'>${key}</span>`,
+				`<span class='${typeof value}'>${value}</span>`,
+			];
+		}),
+	);
 }
 
 function str(result) {
@@ -36,14 +64,6 @@ function bool(result) {
 	};
 }
 
-function deepMap(arr) {
-	return arr.map((item) => {
-		return Array.isArray(item)
-			? deepMap(item)
-			: `<span class='${typeof item}'>${item}</span>`;
-	});
-}
-
 function arr(result) {
 	const newFormat = JSON.stringify(deepMap(result))
 		.replaceAll('"', '')
@@ -55,20 +75,6 @@ function arr(result) {
 		type: 'array',
 		content: newFormat,
 	};
-}
-
-function mappedObj(obj) {
-	return Object.fromEntries(
-		Object.entries(obj).map(([key, value]) => {
-			if (typeof value === 'object') {
-				return [`<span class='key'>${key}</span>`, mappedObj(value)];
-			}
-			return [
-				`<span class='key'>${key}</span>`,
-				`<span class='${typeof value}'>${value}</span>`,
-			];
-		}),
-	);
 }
 
 function obj(result) {
@@ -105,6 +111,11 @@ function formatter(result) {
 	if (isObject(result)) {
 		return obj(result);
 	}
+
+	return {
+		type: 'undefined',
+		content: result,
+	};
 }
 
 export default formatter;

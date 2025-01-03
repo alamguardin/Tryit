@@ -29,6 +29,12 @@ testResults.num
 testResults.bool
 testResults.obj
 testResults.arr
+
+const arr = [{name: 'Alam'}, {name: 'Jhon'}]
+arr
+
+const obj = {names: [0,2,3,4]}
+obj
 `;
 
 const startState = EditorState.create({
