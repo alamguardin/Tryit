@@ -1,21 +1,23 @@
 {
-	"name": "tryit",
-	"version": "1.0.0",
-	"main": "main.mjs",
-	"type": "module",
-	"scripts": {
-		"start": "electron .",
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"description": "",
-	"devDependencies": {
-		"@biomejs/biome": "1.9.4",
-		"electron": "^33.2.0"
-	},
-	"dependencies": {
-		"express": "^4.21.1"
-	}
+  "name": "tryit",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "vite": "^6.0.5",
+    "vitest": "^2.1.8"
+  },
+  "dependencies": {
+    "@babel/standalone": "^7.26.4",
+    "@codemirror/lang-javascript": "^6.2.2",
+    "@codemirror/language": "^6.10.8",
+    "codemirror": "^6.0.1",
+    "thememirror": "^2.0.1"
+  }
 }
