@@ -53,7 +53,7 @@ const output = document.getElementById('output');
 editor.addEventListener('keyup', () => {
 	const currentCode = view.state.doc.toString();
 	const results = evaluate(currentCode);
-	console.log(results);
+	// console.log(results);
 	let resultsFragment = '';
 
 	for (const result of results) {
