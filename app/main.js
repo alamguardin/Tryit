@@ -4,7 +4,7 @@ import { EditorView, keymap } from '@codemirror/view';
 import { defaultKeymap } from '@codemirror/commands';
 import { javascript } from '@codemirror/lang-javascript';
 import { dracula } from 'thememirror';
-import evaluate from './src/Evaluate';
+import evaluate from './src/evaluate';
 
 /**
  * Get Started the editor
