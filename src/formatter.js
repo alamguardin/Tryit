@@ -7,12 +7,7 @@ function deepMap(arr) {
 		return Array.isArray(item)
 			? deepMap(item)
 			: isObject(item)
-				? JSON.stringify(mappedObj(item))
-						.replaceAll('"', '')
-						.replaceAll(':', ' : ')
-						.replaceAll(',', ', ')
-						.replaceAll('{', '{ ')
-						.replaceAll('}', ' }')
+				? mappedObj(item)
 				: `<span class='${typeof item}'>${item}</span>`;
 	});
 }
@@ -25,14 +20,7 @@ function mappedObj(obj) {
 			}
 
 			if (Array.isArray(value)) {
-				return [
-					`<span class='key'>${key}</span>`,
-					JSON.stringify(deepMap(value))
-						.replaceAll('"', '')
-						.replaceAll(',', ', ')
-						.replaceAll('[', '[ ')
-						.replaceAll(']', ' ]'),
-				];
+				return [`<span class='key'>${key}</span>`, deepMap(value)];
 			}
 
 			return [
@@ -74,7 +62,10 @@ function bigint(result) {
 function arr(result) {
 	const newFormat = JSON.stringify(deepMap(result))
 		.replaceAll('"', '')
+		.replaceAll(':', ' : ')
 		.replaceAll(',', ', ')
+		.replaceAll('{', '{ ')
+		.replaceAll('}', ' }')
 		.replaceAll('[', '[ ')
 		.replaceAll(']', ' ]');
 
@@ -90,7 +81,9 @@ function obj(result) {
 		.replaceAll(':', ' : ')
 		.replaceAll(',', ', ')
 		.replaceAll('{', '{ ')
-		.replaceAll('}', ' }');
+		.replaceAll('}', ' }')
+		.replaceAll('[', '[ ')
+		.replaceAll(']', ' ]');
 
 	return {
 		type: 'object',
