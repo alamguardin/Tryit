@@ -89,3 +89,12 @@ iframe {
 .output .error {
     color: #FF5555;
 }
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+    #app {
+        grid-template-columns: 1fr;
+        grid-template-rows: 50% 50%;
+        overflow: auto;
+    }
+}
