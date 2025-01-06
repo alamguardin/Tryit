@@ -21,7 +21,10 @@ function evaluate(code) {
 		for (const node of nodes) {
 			const astToCode = Babel.packages.generator.default(node);
 			codeToExecute += astToCode.code;
-			if (node.type === 'ExpressionStatement') {
+			if (
+				node.type === 'ExpressionStatement' ||
+				node.type === 'ForStatement'
+			) {
 				const result = runCode(codeToExecute);
 				executionResults.push(result);
 			}
